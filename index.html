@@ -128,6 +128,17 @@ nav{
   line-height:1.65;
   animation:fadeUp 0.8s 0.2s ease both;
 }
+.hero-terms-notice{
+  font-size:13px;color:var(--tx-3);line-height:1.55;
+  max-width:520px;margin:-32px auto 40px;
+  animation:fadeUp 0.8s 0.25s ease both;
+}
+.hero-terms-notice .hero-terms-open{
+  background:none;border:none;padding:0;font:inherit;
+  color:var(--tx-2);text-decoration:underline;text-underline-offset:3px;
+  cursor:pointer;transition:color 0.2s;
+}
+.hero-terms-notice .hero-terms-open:hover{color:var(--gem-l)}
 .hero-actions{
   display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
   animation:fadeUp 0.8s 0.3s ease both;
@@ -446,30 +457,43 @@ footer{
 .footer-legal a{color:var(--tx-3);text-decoration:none;transition:color 0.2s}
 .footer-legal a:hover{color:var(--tx-1)}
 
-/* ── PRIVACY POLICY ── */
-.privacy{
+/* ── PRIVACY POLICY & TERMS (full-page panels) ── */
+.privacy, .terms{
   display:none;
   padding:120px 24px 80px;
   max-width:760px;margin:0 auto;
 }
-.privacy.active{display:block}
-.privacy h1{
+.privacy.active, .terms.active{display:block}
+#terms-title, #privacy-title{
   font-family:'Cormorant Garamond',serif;
   font-size:clamp(32px,5vw,52px);font-weight:300;
   margin-bottom:8px;
+  color:var(--tx-1);
 }
-.privacy-date{font-size:13px;color:var(--tx-3);margin-bottom:48px}
-.privacy h2{
+.privacy .terms-meta, .terms .terms-meta{
+  font-size:13px;color:var(--tx-3);margin-bottom:48px;
+}
+.privacy h2:not(#privacy-title), .terms h2:not(#terms-title){
   font-size:17px;font-weight:600;
   color:var(--gem-l);margin:36px 0 12px;
 }
-.privacy p,.privacy li{
+.privacy h3, .terms h3{
+  font-size:15px;font-weight:600;color:var(--tx-1);
+  margin:20px 0 10px;
+}
+.privacy pre, .terms pre{
+  margin:16px 0;padding:16px;
+  background:var(--surface);border:1px solid var(--bd);border-radius:12px;
+  font-size:15px;color:var(--tx-2);line-height:1.75;
+  white-space:pre-wrap;font-family:inherit;
+}
+.privacy p,.privacy li,.terms p,.terms li{
   font-size:15px;color:var(--tx-2);
   line-height:1.75;margin-bottom:12px;
 }
-.privacy ul{padding-left:20px;margin-bottom:16px}
-.privacy li{margin-bottom:8px}
-.privacy strong{color:var(--tx-1);font-weight:600}
+.privacy ul,.terms ul{padding-left:20px;margin-bottom:16px}
+.privacy li,.terms li{margin-bottom:8px}
+.privacy strong,.terms strong{color:var(--tx-1);font-weight:600}
 
 /* ── ANIMATIONS ── */
 @keyframes fadeUp{
@@ -520,6 +544,7 @@ footer{
     <div class="hero-label">Personal financial coaching</div>
     <h1 class="hero-title">Know exactly what to do<br><em>with your money next.</em></h1>
     <p class="hero-sub">A financial coach that shows you what to do next — before subscriptions renew, before goals slip, before it costs you.</p>
+    <p class="hero-terms-notice">By using Beynd, you agree to our <button type="button" class="hero-terms-open" onclick="showTerms()">Terms of Service</button>.</p>
     <div class="hero-actions">
       <a href="#install" class="btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -718,78 +743,266 @@ footer{
 </section>
 
 <!-- PRIVACY POLICY (hidden by default, shown via anchor) -->
-<section class="privacy" id="privacy">
+<section class="privacy" id="privacy" aria-labelledby="privacy-title">
   <p style="margin-bottom:32px"><button type="button" class="btn-secondary" onclick="hidePrivacy()" style="cursor:pointer;font-family:'DM Sans',sans-serif">Back</button></p>
-  <h1>Privacy Policy</h1>
-  <p class="privacy-date">Last updated: January 2025</p>
+  <h2 id="privacy-title">Privacy Policy</h2>
+  <p class="terms-meta">Last updated: 5 May 2026</p>
+  <p><strong>Effective date: 5 May 2026</strong></p>
+  <p>Beynd Ltd · <a href="mailto:hello@withbeynd.com" style="color:var(--gem)">hello@withbeynd.com</a> · <a href="https://withbeynd.com" style="color:var(--gem)">withbeynd.com</a></p>
 
-  <p>This Privacy Policy explains how Beynd Ltd ("Beynd", "we", "us", "our") collects, uses, and protects your information when you use the Beynd financial coaching application ("the App") and website at withbeynd.com ("the Site").</p>
+  <h2>1. Introduction</h2>
+  <p>Beynd Ltd (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;) operates the Beynd application.</p>
+  <p>This Privacy Policy explains how we collect, use, and protect your information when you use Beynd.</p>
+  <p>Beynd is designed with a <strong>privacy-first, local-first architecture</strong>, meaning your financial data remains under your control.</p>
 
-  <h2>1. Who we are</h2>
-  <p>Beynd Ltd is a company registered in England and Wales. Our registered address is on file at Companies House. You can contact us at <a href="mailto:hello@withbeynd.com" style="color:var(--gem)">hello@withbeynd.com</a>.</p>
+  <h2>2. What Data We Collect</h2>
 
-  <h2>2. What data we collect</h2>
-  <p>Beynd is designed to keep your data on your device. The App stores all financial information — income, expenses, debts, goals, investments, and payments — locally on your device using your browser's localStorage. This data does not leave your device and is not transmitted to our servers.</p>
-  <p>When you use the Site or App we may collect:</p>
+  <h3>2.1 Financial Data (Local Only)</h3>
+  <p>When you use Beynd, you may input financial information such as:</p>
   <ul>
-    <li><strong>Device and usage data</strong> — browser type, operating system, pages visited, time spent. Collected anonymously for analytics purposes.</li>
-    <li><strong>Contact information</strong> — if you contact us by email, we collect the information you provide in that communication.</li>
-    <li><strong>Notification preferences</strong> — if you enable reminders, we store your preference locally on your device.</li>
+    <li>income</li>
+    <li>expenses</li>
+    <li>debts</li>
+    <li>savings goals</li>
+    <li>investments</li>
   </ul>
-  <p>We do not collect your financial data. We do not have access to what you enter into the App. Your income, debts, goals, and spending figures are stored only on your device.</p>
+  <p>This data is:</p>
+  <pre>✔ stored locally on your device
+✔ not transmitted to Beynd servers
+✔ not accessible by Beynd Ltd</pre>
+  <p>We do not collect, store, or process this financial data on our systems.</p>
 
-  <h2>3. How we use your data</h2>
+  <h3>2.2 Technical and Usage Data</h3>
+  <p>We may collect limited non-financial data, such as:</p>
   <ul>
-    <li>To provide and improve the App and Site</li>
-    <li>To respond to enquiries you send us</li>
-    <li>To understand how the App is used so we can make it better</li>
-    <li>To comply with legal obligations</li>
+    <li>anonymised usage analytics</li>
+    <li>device type and browser information</li>
+    <li>performance and error diagnostics</li>
   </ul>
-  <p>We do not use your data for advertising. We do not sell your data to third parties. Beynd products are ad-free.</p>
-
-  <h2>4. Legal basis for processing</h2>
-  <p>Under UK GDPR, our legal bases for processing are:</p>
+  <p>This data is used solely to:</p>
   <ul>
-    <li><strong>Legitimate interests</strong> — to operate and improve our service</li>
-    <li><strong>Contract</strong> — to provide the service you have requested</li>
-    <li><strong>Consent</strong> — where you have explicitly provided it, such as for notifications</li>
-    <li><strong>Legal obligation</strong> — where we are required to process data by law</li>
+    <li>improve application performance</li>
+    <li>identify bugs</li>
+    <li>enhance user experience</li>
   </ul>
 
-  <h2>5. Data storage and security</h2>
-  <p>Your financial data is stored locally on your device. It is not transmitted to or stored on our servers. You can delete all data at any time from within the App using the Reset All Data option in Settings.</p>
-  <p>Any data we do hold — such as email communications — is stored securely and accessed only by authorised personnel.</p>
+  <h2>3. Open Banking and Third-Party Data Access</h2>
+  <p>Beynd may offer optional bank connection features through regulated Open Banking providers such as TrueLayer, Plaid, or Yapily.</p>
 
-  <h2>6. Third party services</h2>
-  <p>The App currently operates without third party integrations for financial data. When bank connectivity is introduced in a future version, we will update this policy with full details of data sharing arrangements and obtain your explicit consent before connecting any account.</p>
-  <p>The Site uses Google Fonts for typography. Google may collect limited data as a result. See Google's privacy policy at policies.google.com.</p>
-
-  <h2>7. Your rights under UK GDPR</h2>
-  <p>You have the right to:</p>
+  <h3>3.1 How Connections Work</h3>
   <ul>
-    <li>Access the personal data we hold about you</li>
-    <li>Correct inaccurate data</li>
-    <li>Request deletion of your data</li>
-    <li>Object to or restrict processing</li>
-    <li>Data portability</li>
-    <li>Withdraw consent at any time where processing is based on consent</li>
+    <li>Bank authentication is handled entirely by the third-party provider</li>
+    <li>Beynd does not see or store your banking credentials</li>
+    <li>Connections are established only with your explicit consent</li>
   </ul>
-  <p>To exercise any of these rights, contact us at <a href="mailto:hello@withbeynd.com" style="color:var(--gem)">hello@withbeynd.com</a>. We will respond within 30 days.</p>
-  <p>You also have the right to lodge a complaint with the Information Commissioner's Office (ICO) at ico.org.uk.</p>
 
-  <h2>8. Cookies</h2>
-  <p>The Site uses minimal cookies — only those necessary for the site to function. We do not use advertising or tracking cookies. No cookie consent banner is required under the current configuration.</p>
+  <h3>3.2 Data Received</h3>
+  <p>If you connect a bank account, Beynd may receive:</p>
+  <ul>
+    <li>account balances</li>
+    <li>transaction history</li>
+    <li>account identifiers</li>
+  </ul>
+  <p>This access is:</p>
+  <pre>✔ read-only
+✔ permission-based
+✔ user-controlled</pre>
 
-  <h2>9. Children</h2>
-  <p>The App is not directed at children under 13. We do not knowingly collect data from children. If you believe a child has provided us with personal data, contact us at hello@withbeynd.com and we will delete it promptly.</p>
+  <h3>3.3 How Data Is Used</h3>
+  <p>Connected data is used solely to:</p>
+  <ul>
+    <li>provide financial insights</li>
+    <li>improve budgeting and planning</li>
+    <li>power coaching features</li>
+  </ul>
+  <p>We do not:</p>
+  <ul>
+    <li>sell this data</li>
+    <li>share it with advertisers</li>
+    <li>use it for profiling</li>
+  </ul>
 
-  <h2>10. Changes to this policy</h2>
-  <p>We may update this policy as the App develops — particularly when bank connectivity is introduced. We will notify users of material changes by updating the date at the top of this page and, where appropriate, through an in-app notice.</p>
+  <h3>3.4 Data Storage and Processing</h3>
+  <p>Depending on implementation:</p>
+  <ul>
+    <li>Data may be processed locally on your device, or</li>
+    <li>Temporarily processed via secure integrations with providers</li>
+  </ul>
+  <p>In all cases:</p>
+  <ul>
+    <li>Beynd does not store raw banking credentials</li>
+    <li>Data access is limited to what you authorise</li>
+  </ul>
+
+  <h3>3.5 Revoking Access</h3>
+  <p>You can revoke access at any time:</p>
+  <ul>
+    <li>through the third-party provider</li>
+    <li>or within the Beynd application</li>
+  </ul>
+
+  <h2>4. Legal Basis for Processing</h2>
+  <p>Where applicable under UK GDPR, we process data based on:</p>
+  <ul>
+    <li><strong>Consent</strong> — for Open Banking connections</li>
+    <li><strong>Legitimate interests</strong> — for improving the application</li>
+  </ul>
+
+  <h2>5. Data Sharing</h2>
+  <p>We do not sell your personal or financial data.</p>
+  <p>We only share data where necessary:</p>
+  <ul>
+    <li>with Open Banking providers (e.g. TrueLayer, Plaid, Yapily)</li>
+    <li>with infrastructure providers (e.g. hosting, analytics)</li>
+  </ul>
+  <p>All third parties are required to handle data securely and in accordance with applicable regulations.</p>
+
+  <h2>6. Data Retention</h2>
+  <ul>
+    <li>Locally stored data remains on your device until you delete it</li>
+    <li>Uninstalling the application removes locally stored data</li>
+    <li>We do not retain centralised financial records</li>
+  </ul>
+  <p>Where limited technical data is collected, it is retained only as long as necessary for operational purposes.</p>
+
+  <h2>7. Security</h2>
+  <p>We take reasonable technical and organisational measures to protect data.</p>
+  <p>However:</p>
+  <ul>
+    <li>no system can be guaranteed completely secure</li>
+    <li>you are responsible for keeping your device secure</li>
+  </ul>
+
+  <h2>8. Your Rights</h2>
+  <p>Depending on your location, you may have rights to:</p>
+  <ul>
+    <li>access your personal data</li>
+    <li>request correction or deletion</li>
+    <li>withdraw consent</li>
+    <li>lodge a complaint with a supervisory authority</li>
+  </ul>
+  <p>Because Beynd stores financial data locally, you retain direct control over that data.</p>
+
+  <h2>9. Children&rsquo;s Privacy</h2>
+  <p>Beynd is not intended for users under 18.</p>
+  <p>We do not knowingly collect data from children.</p>
+
+  <h2>10. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time.</p>
+  <p>Updates will be reflected by the &ldquo;Effective date&rdquo; above.</p>
 
   <h2>11. Contact</h2>
   <p>Beynd Ltd<br>
   Email: <a href="mailto:hello@withbeynd.com" style="color:var(--gem)">hello@withbeynd.com</a><br>
-  Registered in England and Wales</p>
+  Website: <a href="https://withbeynd.com" style="color:var(--gem)">withbeynd.com</a></p>
+</section>
+
+<!-- TERMS OF SERVICE (hidden by default, shown via showTerms()) -->
+<section class="terms" id="terms" aria-labelledby="terms-title">
+  <p style="margin-bottom:32px"><button type="button" class="btn-secondary" onclick="hideTerms()" style="cursor:pointer;font-family:'DM Sans',sans-serif">Back</button></p>
+  <h2 id="terms-title">Terms of Service</h2>
+  <p class="terms-meta">Last updated: 5 May 2026</p>
+  <p><strong>Effective date: 5 May 2026</strong></p>
+  <p>Beynd Ltd · <a href="mailto:hello@withbeynd.com" style="color:var(--gem)">hello@withbeynd.com</a> · <a href="https://withbeynd.com" style="color:var(--gem)">withbeynd.com</a></p>
+
+    <h2>1. About Beynd</h2>
+    <p>Beynd is a personal financial planning application developed and operated by Beynd Ltd, a company registered in England and Wales.</p>
+    <p>The application is available at gobeynd.app and may be installed as a Progressive Web App on your device.</p>
+    <p>Beynd is a software tool designed to help individuals plan, organise, and better understand their personal finances.</p>
+    <h3>Beynd is not</h3>
+    <ul>
+      <li>a bank</li>
+      <li>a financial institution</li>
+      <li>a payment service provider</li>
+      <li>an Account Information Service Provider (AISP)</li>
+      <li>a regulated financial adviser</li>
+    </ul>
+    <p>Nothing in the application constitutes financial advice, investment advice, or a recommendation to buy, sell, or hold any financial product.</p>
+
+    <h2>2. Acceptance of These Terms</h2>
+    <p>By accessing or using Beynd, you agree to be bound by these Terms of Service.</p>
+    <p>If you do not agree, you should not use the application.</p>
+    <p>We may update these terms from time to time. Continued use of Beynd constitutes acceptance of any updated terms.</p>
+
+    <h2>3. Your Data and Privacy</h2>
+    <p>Beynd is built on a privacy-first, local-first architecture.</p>
+    <p>All financial data you enter is stored locally on your device. This includes income, expenses, debts, goals, and investments.</p>
+    <p>Beynd Ltd does not store this financial data on its servers.</p>
+    <p>No account creation is required, and we do not maintain centralised financial records.</p>
+    <p>We do not sell or share your financial data with third parties.</p>
+    <p>We may collect limited non-financial data such as anonymised usage analytics and performance diagnostics to improve the application.</p>
+
+    <h2>4. Open Banking and Third-Party Data Connections</h2>
+    <p>Beynd may offer optional bank connection features using Open Banking providers such as TrueLayer, Plaid, or Yapily.</p>
+    <p>Bank connections are provided by regulated third-party providers. Beynd does not access or store your banking credentials.</p>
+    <p>Authentication is handled entirely by the third-party provider.</p>
+    <p>If you choose to connect a bank account, Beynd may receive:</p>
+    <ul>
+      <li>account balances</li>
+      <li>transaction history</li>
+      <li>account identifiers</li>
+    </ul>
+    <p>This access is read-only and permission-based.</p>
+    <p>You will be asked to explicitly consent before any connection is made. You may revoke access at any time through the provider or within Beynd.</p>
+    <p>Beynd processes this data solely to provide financial insights and coaching.</p>
+    <h3>Beynd does not</h3>
+    <ul>
+      <li>hold funds</li>
+      <li>initiate payments</li>
+      <li>execute transactions</li>
+      <li>act as a regulated financial service provider</li>
+    </ul>
+
+    <h2>5. Not Financial Advice</h2>
+    <p>Beynd provides tools, calculations, and educational content to help you understand your finances.</p>
+    <p>It does not provide regulated financial advice.</p>
+    <p>You should not rely on Beynd as a substitute for professional advice. If needed, consult a qualified financial adviser.</p>
+    <p>Beynd Ltd accepts no liability for decisions made based on use of the application.</p>
+
+    <h2>6. Your Responsibilities</h2>
+    <p>By using Beynd, you agree to:</p>
+    <ul>
+      <li>keep your device secure</li>
+      <li>keep any passcodes confidential</li>
+      <li>ensure the accuracy of data you enter</li>
+      <li>use the application lawfully</li>
+      <li>not attempt to reverse engineer or disrupt the application</li>
+    </ul>
+
+    <h2>7. Subscription and Payments</h2>
+    <p>Beynd may offer free and paid subscription tiers.</p>
+    <p>Payments are processed through Apple App Store or Google Play Store.</p>
+    <p>Beynd Ltd does not process or store payment card information.</p>
+
+    <h2>8. Intellectual Property</h2>
+    <p>All rights in Beynd, including application design, content, and branding, are owned by Beynd Ltd.</p>
+    <p>You may not copy, distribute, or create derivative works without permission.</p>
+
+    <h2>9. Disclaimer and Limitation of Liability</h2>
+    <p>Beynd is provided "as is" without warranties of any kind.</p>
+    <p>We do not guarantee that:</p>
+    <ul>
+      <li>the application will be error-free</li>
+      <li>the application will be uninterrupted</li>
+      <li>calculations will always be accurate</li>
+    </ul>
+    <p>To the fullest extent permitted by law, Beynd Ltd shall not be liable for financial losses, data loss, or indirect damages.</p>
+
+    <h2>10. Product Availability and Changes</h2>
+    <p>Beynd is an evolving product.</p>
+    <p>We may add, modify, or remove features at any time.</p>
+
+    <h2>11. Termination</h2>
+    <p>You may stop using Beynd at any time.</p>
+    <p>Because your data is stored locally, uninstalling the application removes your data permanently.</p>
+
+    <h2>12. Governing Law</h2>
+    <p>These terms are governed by the laws of England and Wales.</p>
+
+    <h2>13. Contact</h2>
+    <p>Beynd Ltd<br>
+    Email: <a href="mailto:hello@withbeynd.com" style="color:var(--gem)">hello@withbeynd.com</a><br>
+    Website: <a href="https://withbeynd.com" style="color:var(--gem)">withbeynd.com</a></p>
 </section>
 
 <!-- FOOTER -->
@@ -818,6 +1031,8 @@ footer{
   <div class="footer-bottom">
     <span>© 2025 Beynd Ltd. Registered in England and Wales.</span>
     <div class="footer-legal">
+      <a href="#" onclick="showTerms();return false;">Terms of Service</a>
+      <span style="color:var(--bd)">·</span>
       <a href="#privacy" onclick="showPrivacy()">Privacy Policy</a>
       <span style="color:var(--bd)">·</span>
       <a href="mailto:hello@withbeynd.com">hello@withbeynd.com</a>
@@ -837,30 +1052,79 @@ var observer = new IntersectionObserver(function(entries) {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(function(el) { observer.observe(el); });
 
+var legalMainSelector = 'section:not(.privacy):not(.terms), nav, footer';
+
+var legalBase = function () {
+  return window.location.pathname + window.location.search;
+};
+
 // Privacy policy toggle
 function showPrivacy() {
-  var main = document.querySelectorAll('section:not(.privacy), nav, footer');
+  var terms = document.getElementById('terms');
+  if (terms) terms.classList.remove('active');
+  var main = document.querySelectorAll(legalMainSelector);
   var privacy = document.getElementById('privacy');
   privacy.classList.add('active');
   main.forEach(function(el) { el.style.display = 'none'; });
   window.scrollTo(0, 0);
+  if (window.history && window.history.pushState && window.location.hash !== '#privacy') {
+    window.history.pushState(null, '', legalBase() + '#privacy');
+  }
 }
 
 function hidePrivacy() {
-  var main = document.querySelectorAll('section:not(.privacy), nav, footer');
+  var main = document.querySelectorAll(legalMainSelector);
   var privacy = document.getElementById('privacy');
+  var wasActive = privacy.classList.contains('active');
   privacy.classList.remove('active');
   main.forEach(function(el) { el.style.display = ''; });
   window.scrollTo(0, 0);
-  if (window.history && window.history.replaceState) {
-    var base = window.location.pathname + window.location.search;
-    window.history.replaceState(null, '', base + '#home');
+  if (wasActive && window.history && window.history.pushState) {
+    window.history.pushState(null, '', legalBase() + '#home');
   }
 }
+
+function showTerms() {
+  var privacy = document.getElementById('privacy');
+  if (privacy) privacy.classList.remove('active');
+  var main = document.querySelectorAll(legalMainSelector);
+  var terms = document.getElementById('terms');
+  terms.classList.add('active');
+  main.forEach(function(el) { el.style.display = 'none'; });
+  window.scrollTo(0, 0);
+  if (window.history && window.history.pushState && window.location.hash !== '#terms') {
+    window.history.pushState(null, '', legalBase() + '#terms');
+  }
+}
+
+function hideTerms() {
+  var main = document.querySelectorAll(legalMainSelector);
+  var terms = document.getElementById('terms');
+  var wasActive = terms.classList.contains('active');
+  terms.classList.remove('active');
+  main.forEach(function(el) { el.style.display = ''; });
+  window.scrollTo(0, 0);
+  if (wasActive && window.history && window.history.pushState) {
+    window.history.pushState(null, '', legalBase() + '#home');
+  }
+}
+
+window.onpopstate = function () {
+  if (window.location.hash === '#terms') {
+    showTerms();
+  } else if (window.location.hash === '#privacy') {
+    showPrivacy();
+  } else {
+    hideTerms();
+    hidePrivacy();
+  }
+};
 
 // Check URL hash on load
 if (window.location.hash === '#privacy') {
   showPrivacy();
+} else if (window.location.hash === '#terms') {
+  showTerms();
 }
 </script>
 </body>
